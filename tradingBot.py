@@ -1,18 +1,15 @@
 #Imports
 import ibapi
-from concurrent.futures.process import EXTRA_QUEUED_CALLS
-from symtable import Symbol
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
-import numpy as np
-import pandas as pd
-import ta
-import pytz
-import math
-from OrderSamples import OrderSamples
-from datetime import datetime, timedelta
 from ibapi.contract import Contract
 from ibapi.order import *
+import ta
+import numpy as np
+import pandas as pd
+import pytz
+import math
+from datetime import datetime, timedelta
 import threading
 import time
 
@@ -202,9 +199,8 @@ class Bot:
                 self.ib.placeOrder(self.nextOrderId(), self.contract, mktOrder)
                 orderId += 1
 
-                #Bar closed append
-                self.currentBar.close = bar.close
-                if (self.currentBar.date != last)
+                
+                
                         
 
 
