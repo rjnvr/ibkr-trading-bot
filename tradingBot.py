@@ -1,4 +1,5 @@
 #Imports
+from re import A
 import ibapi
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
@@ -75,7 +76,7 @@ class Bar:
 #Bot Logic
 class Bot:
     ib = None
-    barsize = 60
+    barsize = "1 Hour"
     currentBar = Bar()
     bars = []
     reqId = 1
@@ -105,10 +106,15 @@ class Bot:
         self.symbol = input("Enter the symbol/ticker you want to trade: ")
 
         #Get bar size
-        self.barsize = input("Enter the barsize you want to trade in minutes: ")
-        mintext = " min"
-        if (int(self.barsize) > 1):
-            mintext = " mins"
+        #Valid bar sizes are: _ secs, 1 min, _ mins, 1 hour, _ hours, 1 day, 1 week, 1 month
+    
+        # self.barsize = input("Enter the barsize you want to trade in minutes: ")
+        # mintext = " min"
+        # if (int(self.barsize) > 1):
+        #     mintext = " mins"
+        # elif (int(self.barsize) >= 60):
+        #     mintext = " hour"
+        
         
         queryTime = (datetime.now().astimezone(pytz.timezone("America/New_York"))-timedelta(days=1)).replace(hour=16,minute=0,second=0,microsecond=0).strftime("%Y%m%d %H:%M:%S")
 
@@ -122,7 +128,7 @@ class Bot:
 
         #Request Market Data
         #self.ib.reqRealTimeBars(0, contract, 3600, "MIDPOINT", 1, []) # 1 = Regular Trading Hours - 0 = all trading hours
-        self.ib.reqHistoricalData(self.reqId, contract, "1 hour", "2 D", str(self.barsize)+mintext, "MIDPOINT", 1, 1, True, [])
+        self.ib.reqHistoricalData(self.reqId,contract,"","1 M",str(self.barsize),"MIDPOINT",1,1,True,[])
 
     #threading cont
     #Listen to socket in seperate thread
